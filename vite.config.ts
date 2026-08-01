@@ -33,7 +33,22 @@ const localBindingConfig = {
     : [],
 };
 
+// Netlify can't run the Cloudflare Worker that the Cloudflare plugin emits, so
+// builds there go through Nitro instead. Netlify sets NETLIFY=true in CI; set
+// NITRO_PRESET=netlify to reproduce that build locally.
+const isNitroBuild = Boolean(process.env.NETLIFY || process.env.NITRO_PRESET);
+
 export default defineConfig(async () => {
+  if (isNitroBuild) {
+    const { nitro } = await import("nitro/vite");
+    return {
+      // Nitro doesn't pick up postcss.config.mjs on its own, which leaves
+      // `@import "tailwindcss"` to postcss-import and fails the build.
+      css: { postcss: "./postcss.config.mjs" },
+      plugins: [vinext(), sites(), nitro()],
+    };
+  }
+
   // Keep Wrangler and Miniflare state project-local. These are non-secret tool
   // settings; application environment belongs in ignored `.env*` files.
   process.env.WRANGLER_WRITE_LOGS ??= "false";
