@@ -308,3 +308,118 @@
   opacity: .6;
   cursor: progress;
 }
+
+/* ---- Live stream takeover ------------------------------------------------ */
+
+/* Covers the whole site while a stream is set, for every visitor. */
+.live-takeover {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  background: #000;
+}
+
+.live-takeover iframe,
+.live-takeover video {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  object-fit: contain;
+  background: #000;
+}
+
+.live-badge {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  margin: 0;
+  padding: 7px 12px;
+  background: var(--red);
+  color: #fff;
+  font: 500 10px 'DM Mono';
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* Sits above the takeover so the stream can always be stopped. */
+.live-admin {
+  position: fixed;
+  z-index: 110;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+.live-admin-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgba(0, 0, 0, .8);
+}
+
+.live-admin-card {
+  position: relative;
+  z-index: 1;
+  width: min(420px, 100%);
+  background: var(--ink);
+  color: #fff;
+  padding: 30px;
+}
+
+.live-admin-card label {
+  display: block;
+  margin-bottom: 10px;
+  font: 500 10px 'DM Mono';
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.live-admin-card input {
+  width: 100%;
+  margin-bottom: 16px;
+  padding: 12px 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, .5);
+  background: transparent;
+  color: #fff;
+  font: 400 16px Manrope;
+  outline: none;
+}
+
+.live-admin-card button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background: var(--red);
+  color: #fff;
+  font: 500 11px 'DM Mono';
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.live-admin-card button[disabled] { opacity: .55; cursor: not-allowed; }
+
+.live-stop {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, .45);
+  color: #fff;
+  font: 500 10px 'DM Mono';
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.live-error {
+  margin: 14px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #ff8080;
+}

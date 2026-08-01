@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import LiveStream from "./live-stream";
 
 export const metadata: Metadata = {
   title: "Media Spill Network | The Next Sound Starts Here",
@@ -21,5 +22,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
+  return <html lang="en"><body>{children}<LiveStream /></body></html>;
 }
