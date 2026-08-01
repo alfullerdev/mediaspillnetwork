@@ -246,21 +246,24 @@ export default function Home() {
       </section>
 
       <section className="contact wrap" id="contact">
-        <div><p className="section-label">05 / Contact</p><h2>Let’s make<br />something <em>unforgettable.</em></h2><p>Ready to create? Let’s build your vision together and make it happen.</p><a href="mailto:thespillnetwork@gmail.com" className="contact-email">thespillnetwork@gmail.com <span>↗</span></a><a href="tel:+13059888463" className="phone">+1 305 988 8463</a></div>
+        <div><p className="section-label">05 / Contact</p><h2>Let’s make<br />something <em>unforgettable.</em></h2><p>Ready to create? Let’s build your vision together and make it happen.</p><a href="mailto:info@mediaspillnetwork.com" className="contact-email">info@mediaspillnetwork.com <span>↗</span></a><a href="tel:+13059888463" className="phone">+1 305 988 8463</a></div>
         <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={submit}>
           {status === "sent" ? <div className="form-success"><span>✓</span><h3>Message received.</h3><p>We’ll be in touch soon.</p></div> : <>
             <input type="hidden" name="form-name" value="contact" />
+            {/* Sets the notification email's subject line. The `email` field
+                below becomes its Reply-to, so replying reaches the sender. */}
+            <input type="hidden" name="subject" value="New enquiry from mediaspillnetwork.com" />
             <p className="form-hp" aria-hidden="true"><label>Leave this empty<input name="bot-field" tabIndex={-1} autoComplete="off" /></label></p>
             <label>Name<input required name="name" placeholder="Your name" /></label>
             <label>Email<input required type="email" name="email" placeholder="you@email.com" /></label>
             <label>Tell us about it<textarea required name="message" placeholder="Project, idea, or just say hello..." rows={4} /></label>
-            {status === "error" && <p className="form-error" role="alert">Something went wrong sending that. Email <a href="mailto:thespillnetwork@gmail.com">thespillnetwork@gmail.com</a> and we’ll pick it up.</p>}
+            {status === "error" && <p className="form-error" role="alert">Something went wrong sending that. Email <a href="mailto:info@mediaspillnetwork.com">info@mediaspillnetwork.com</a> and we’ll pick it up.</p>}
             <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : <>Send message <span>↗</span></>}</button>
           </>}
         </form>
       </section>
 
-      <footer className="footer"><div className="wrap"><a href="#top" className="footer-mark">MED!A SP!LL</a><div><a href="https://instagram.com/mediaspill" target="_blank" rel="noreferrer">Instagram ↗</a><a href="mailto:thespillnetwork@gmail.com">Email ↗</a></div><p>© 2026 Media Spill Network</p></div></footer>
+      <footer className="footer"><div className="wrap"><a href="#top" className="footer-mark">MED!A SP!LL</a><div><a href="https://instagram.com/mediaspill" target="_blank" rel="noreferrer">Instagram ↗</a><a href="mailto:info@mediaspillnetwork.com">Email ↗</a></div><p>© 2026 Media Spill Network</p></div></footer>
     </main>
   );
 }
