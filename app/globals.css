@@ -285,3 +285,26 @@
   text-transform: uppercase;
   color: #ff5555;
 }
+
+/* Netlify honeypot — must exist in the DOM but never be seen or focusable. */
+.form-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.form-error {
+  margin: 18px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--red);
+}
+
+.form-error a { text-decoration: underline; }
+
+.contact form button[disabled] {
+  opacity: .6;
+  cursor: progress;
+}

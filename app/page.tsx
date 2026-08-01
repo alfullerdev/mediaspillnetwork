@@ -111,7 +111,7 @@ function Poster({ id, alt, className = "" }: { id: string; alt: string; classNam
 }
 
 export default function Home() {
-  const [sent, setSent] = useState(false);
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeService, setActiveService] = useState<number | null>(null);
   const [activeWork, setActiveWork] = useState<number | null>(null);
@@ -124,9 +124,26 @@ export default function Home() {
     );
     return () => window.clearInterval(timer);
   }, []);
-  const submit = (event: FormEvent<HTMLFormElement>) => {
+  // Netlify Forms takes a urlencoded POST to any path on the site, with the
+  // form's name in a `form-name` field. JSON is not supported.
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setSent(true);
+    const form = event.currentTarget;
+    const body = new URLSearchParams();
+    new FormData(form).forEach((value, key) => body.append(key, String(value)));
+
+    setStatus("sending");
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body.toString(),
+      });
+      if (!response.ok) throw new Error(`Netlify returned ${response.status}`);
+      setStatus("sent");
+    } catch {
+      setStatus("error");
+    }
   };
 
   return (
@@ -230,7 +247,17 @@ export default function Home() {
 
       <section className="contact wrap" id="contact">
         <div><p className="section-label">05 / Contact</p><h2>Let’s make<br />something <em>unforgettable.</em></h2><p>Ready to create? Let’s build your vision together and make it happen.</p><a href="mailto:thespillnetwork@gmail.com" className="contact-email">thespillnetwork@gmail.com <span>↗</span></a><a href="tel:+13059888463" className="phone">+1 305 988 8463</a></div>
-        <form onSubmit={submit}>{sent ? <div className="form-success"><span>✓</span><h3>Message received.</h3><p>We’ll be in touch soon.</p></div> : <><label>Name<input required name="name" placeholder="Your name" /></label><label>Email<input required type="email" name="email" placeholder="you@email.com" /></label><label>Tell us about it<textarea required name="message" placeholder="Project, idea, or just say hello..." rows={4} /></label><button type="submit">Send message <span>↗</span></button></>}</form>
+        <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={submit}>
+          {status === "sent" ? <div className="form-success"><span>✓</span><h3>Message received.</h3><p>We’ll be in touch soon.</p></div> : <>
+            <input type="hidden" name="form-name" value="contact" />
+            <p className="form-hp" aria-hidden="true"><label>Leave this empty<input name="bot-field" tabIndex={-1} autoComplete="off" /></label></p>
+            <label>Name<input required name="name" placeholder="Your name" /></label>
+            <label>Email<input required type="email" name="email" placeholder="you@email.com" /></label>
+            <label>Tell us about it<textarea required name="message" placeholder="Project, idea, or just say hello..." rows={4} /></label>
+            {status === "error" && <p className="form-error" role="alert">Something went wrong sending that. Email <a href="mailto:thespillnetwork@gmail.com">thespillnetwork@gmail.com</a> and we’ll pick it up.</p>}
+            <button type="submit" disabled={status === "sending"}>{status === "sending" ? "Sending…" : <>Send message <span>↗</span></>}</button>
+          </>}
+        </form>
       </section>
 
       <footer className="footer"><div className="wrap"><a href="#top" className="footer-mark">MED!A SP!LL</a><div><a href="https://instagram.com/mediaspill" target="_blank" rel="noreferrer">Instagram ↗</a><a href="mailto:thespillnetwork@gmail.com">Email ↗</a></div><p>© 2026 Media Spill Network</p></div></footer>
