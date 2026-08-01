@@ -423,3 +423,36 @@
   line-height: 1.5;
   color: #ff8080;
 }
+
+/* Deliberately near-invisible: an escape hatch for the operator, not a control
+   for visitors. Always above the player iframe. */
+.live-escape {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: default;
+}
+
+.live-escape:hover {
+  background: rgba(255, 255, 255, .12);
+}
+
+.live-unsupported {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  margin: 0;
+  padding: 24px;
+  color: #fff;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.live-unsupported a { color: var(--red); text-decoration: underline; }

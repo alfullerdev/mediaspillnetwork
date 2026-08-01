@@ -11,43 +11,64 @@ const POLL_MS = 15000;
 
 type Panel = "closed" | "passcode" | "url";
 
-/** Turns a share URL into something embeddable, or null if it's a direct file. */
-function embedSrc(raw: string): string | null {
+type Playable =
+  | { kind: "iframe"; src: string }
+  | { kind: "video"; src: string }
+  | { kind: "unsupported" };
+
+const VIDEO_FILE = /\.(m3u8|mp4|webm|mov|ogg)(\?|$)/i;
+
+/** Works out how a given URL should be played, if at all. */
+function resolvePlayer(raw: string): Playable {
   let url: URL;
   try {
     url = new URL(raw);
   } catch {
-    return null;
+    return { kind: "unsupported" };
   }
   const host = url.hostname.replace(/^www\./, "");
+  const iframe = (src: string): Playable => ({ kind: "iframe", src });
 
   if (host === "youtu.be") {
-    return `https://www.youtube.com/embed/${url.pathname.slice(1)}?autoplay=1`;
+    return iframe(`https://www.youtube.com/embed/${url.pathname.slice(1)}?autoplay=1`);
   }
   if (host === "youtube.com" || host === "m.youtube.com") {
     if (url.pathname === "/watch" && url.searchParams.get("v")) {
-      return `https://www.youtube.com/embed/${url.searchParams.get("v")}?autoplay=1`;
+      return iframe(`https://www.youtube.com/embed/${url.searchParams.get("v")}?autoplay=1`);
     }
     if (url.pathname.startsWith("/live/")) {
-      return `https://www.youtube.com/embed/${url.pathname.split("/")[2]}?autoplay=1`;
+      return iframe(`https://www.youtube.com/embed/${url.pathname.split("/")[2]}?autoplay=1`);
     }
-    if (url.pathname.startsWith("/embed/")) return url.toString();
+    if (url.pathname.startsWith("/embed/")) return iframe(url.toString());
   }
   if (host === "twitch.tv") {
     const channel = url.pathname.split("/").filter(Boolean)[0];
     if (channel) {
-      // Twitch requires the embedding hostname to be declared.
+      // Twitch refuses to embed unless the hosting domain is declared.
       const parent = typeof window === "undefined" ? "" : window.location.hostname;
-      return `https://player.twitch.tv/?channel=${channel}&parent=${parent}&autoplay=true`;
+      return iframe(`https://player.twitch.tv/?channel=${channel}&parent=${parent}&autoplay=true`);
     }
   }
   if (host === "vimeo.com") {
     const id = url.pathname.split("/").filter(Boolean)[0];
-    if (id) return `https://player.vimeo.com/video/${id}?autoplay=1`;
+    if (id) return iframe(`https://player.vimeo.com/video/${id}?autoplay=1`);
   }
-  if (host === "player.vimeo.com" || host === "player.twitch.tv") return url.toString();
+  if (host === "player.vimeo.com" || host === "player.twitch.tv" || host === "facebook.com/plugins") {
+    return iframe(url.toString());
+  }
+  // Facebook and Instagram lives go through Facebook's video plugin; the raw
+  // page URL is HTML and would leave a black screen in a <video> tag.
+  if (host === "facebook.com" || host === "fb.watch" || host === "instagram.com") {
+    return iframe(
+      `https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(url.toString())}&autoplay=1`,
+    );
+  }
 
-  return null;
+  if (VIDEO_FILE.test(url.pathname)) return { kind: "video", src: url.toString() };
+
+  // Anything else is almost certainly an HTML page, which would render as a
+  // black box. Say so rather than pretending it is playing.
+  return { kind: "unsupported" };
 }
 
 export default function LiveStream() {
@@ -81,6 +102,16 @@ export default function LiveStream() {
       cancelled = true;
       window.clearInterval(timer);
     };
+  }, []);
+
+  // Focus moves inside a cross-origin player iframe as soon as it is clicked,
+  // and key events there never reach this page — so the hotkey alone can lock
+  // the operator out. ?stream-admin is a focus-proof way back in.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!new URLSearchParams(window.location.search).has("stream-admin")) return;
+    const id = window.setTimeout(() => setPanel("passcode"), 0);
+    return () => window.clearTimeout(id);
   }, []);
 
   useEffect(() => {
@@ -167,23 +198,35 @@ export default function LiveStream() {
     }
   };
 
-  const iframeSrc = streamUrl ? embedSrc(streamUrl) : null;
+  const player = streamUrl ? resolvePlayer(streamUrl) : null;
 
   return (
     <>
       {streamUrl && (
         <div className="live-takeover" role="region" aria-label="Live stream">
-          {iframeSrc ? (
+          {player?.kind === "iframe" && (
             <iframe
-              src={iframeSrc}
+              src={player.src}
               title="Live stream"
               allow="autoplay; fullscreen; picture-in-picture"
               allowFullScreen
             />
-          ) : (
-            <video src={streamUrl} controls autoPlay playsInline />
+          )}
+          {player?.kind === "video" && <video src={player.src} controls autoPlay playsInline />}
+          {player?.kind === "unsupported" && (
+            <p className="live-unsupported">
+              This link can’t be embedded.<br />
+              <a href={streamUrl} target="_blank" rel="noreferrer">Open the stream directly ↗</a>
+            </p>
           )}
           <p className="live-badge">● Live</p>
+          {/* Sits above the iframe so there is always a clickable way back to
+              the controls, even once the player has taken keyboard focus. */}
+          <button
+            className="live-escape"
+            onClick={() => setPanel("passcode")}
+            aria-label="Live stream controls"
+          />
         </div>
       )}
 
