@@ -42,9 +42,6 @@ export default defineConfig(async () => {
   if (isNitroBuild) {
     const { nitro } = await import("nitro/vite");
     return {
-      // Nitro doesn't pick up postcss.config.mjs on its own, which leaves
-      // `@import "tailwindcss"` to postcss-import and fails the build.
-      css: { postcss: "./postcss.config.mjs" },
       plugins: [vinext(), sites(), nitro()],
     };
   }
