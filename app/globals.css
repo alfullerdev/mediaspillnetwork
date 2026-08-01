@@ -1,0 +1,288 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root { --ink:#0b0b0b; --paper:#fff; --red:#e01818; --line:rgba(11,11,11,.18); }
+.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.service-card{min-height:275px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;justify-content:space-between;padding:22px;border:1px solid var(--ink);background:#fff;color:var(--ink);transition:background .2s,color .2s,transform .2s}.service-card:hover{background:var(--ink);color:#fff;transform:translateY(-3px)}.service-card>span{font:500 10px 'DM Mono';color:var(--red)}.service-card h3{font-size:26px;letter-spacing:-.065em;line-height:.95;margin:35px 0 0}.service-card p{font-size:12px;line-height:1.55;margin:12px 0 0;max-width:250px}.service-card>div{width:100%;display:flex;justify-content:space-between;align-items:end;margin-top:22px}.service-card small{font:500 9px 'DM Mono';line-height:1.5;letter-spacing:.06em;text-transform:uppercase;max-width:150px}.service-card b{font-size:24px;font-weight:400;color:var(--red)}.service-modal{position:fixed;z-index:20;inset:0;display:grid;place-items:center;padding:20px}.modal-backdrop{position:absolute;inset:0;width:100%;height:100%;margin:0;background:rgba(0,0,0,.75);border:0}.modal-card{position:relative;width:min(640px,100%);max-height:calc(100vh - 40px);overflow-y:auto;background:#fff;padding:44px}.modal-close{position:absolute;top:14px;right:14px;width:34px;height:34px;padding:0;margin:0;background:var(--ink);color:#fff;font-size:24px;line-height:1}.modal-close:hover{background:var(--red)}.modal-card h2{font-size:clamp(42px,6vw,72px);letter-spacing:-.075em;line-height:.9;margin:32px 0 0}.modal-price{font:500 20px 'DM Mono';color:var(--red);margin:20px 0 6px}.modal-detail{font:500 11px 'DM Mono';letter-spacing:.06em;text-transform:uppercase;color:#666;margin:10px 0 0}.modal-description+.modal-description{margin-top:14px}.modal-intro{font-size:19px;line-height:1.35;margin:24px 0}.modal-description{font-size:14px;line-height:1.65;color:#444}.modal-card h3{font-size:13px;text-transform:uppercase;letter-spacing:.08em;margin:30px 0 12px}.modal-card ul{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:0;padding:0;list-style:none}.modal-card li{border-top:1px solid var(--line);padding-top:9px;font-size:13px}.modal-cta{display:inline-block;background:var(--red);color:#fff;padding:15px 18px;margin-top:35px;font:500 11px 'DM Mono';letter-spacing:.06em;text-transform:uppercase}.modal-cta span{font-size:18px;margin-left:8px}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:Manrope,Arial,sans-serif} a{color:inherit;text-decoration:none}.wrap{width:min(1240px,calc(100% - 56px));margin:auto}.hero{position:relative;min-height:760px;height:100vh;color:#fff;overflow:hidden;background:#090909}.hero-image,.hero-shade{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.hero-image{filter:grayscale(100%) contrast(1.1);opacity:0;transition:opacity .8s ease}.hero-image.is-active{opacity:.75}.hero-shade{z-index:1;background:linear-gradient(180deg,rgba(0,0,0,.5) 0%,rgba(0,0,0,.08) 42%,rgba(0,0,0,.88) 100%)}.nav{height:100px;display:flex;position:relative;z-index:2;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.35)}.brand,.footer-mark{font:600 22px/.73 Manrope;letter-spacing:-1.7px}.nav-links{display:flex;gap:30px;font:500 11px 'DM Mono';text-transform:uppercase;letter-spacing:.08em}.nav-links a:hover,.text-link:hover{opacity:.55}.nav-cta{font:500 12px 'DM Mono';border:1px solid #fff;border-radius:999px;padding:12px 16px}.nav-cta span{font-size:17px;margin-left:8px;color:var(--red)}.hero-content{position:relative;z-index:1;height:calc(100% - 100px);padding-top:clamp(95px,17vh,180px);display:flex;flex-direction:column;justify-content:space-between;padding-bottom:110px}.eyebrow{font:500 10px 'DM Mono';letter-spacing:.1em;text-transform:uppercase}.section-label{font:500 clamp(15px,1.3vw,20px) 'DM Mono';letter-spacing:.1em;text-transform:uppercase}.hero h1,.intro h2,.watchlist h2,.reel h2,.services h2,.contact h2{margin:0;font:500 clamp(73px,11vw,158px)/.78 Manrope;letter-spacing:-.095em;text-transform:uppercase}.hero h1 em,.intro h2 em,.watchlist h2 em,.reel h2 em,.services h2 em,.contact h2 em{font-family:'Instrument Serif';font-weight:400;text-transform:none;letter-spacing:-.08em;color:var(--red)}.hero-bottom{display:flex;justify-content:space-between;align-items:end}.hero-bottom p{max-width:265px;font-size:18px;line-height:1.1;text-transform:uppercase;letter-spacing:-.05em;margin:8px 0 0}.hero-feature>span{font:500 9px 'DM Mono';letter-spacing:.09em;text-transform:uppercase;color:#ff7f7f}.slide-controls{display:flex;gap:7px;margin-top:17px}.slide-dot{width:25px;height:2px;margin:0;padding:0;border:0;background:rgba(255,255,255,.4);cursor:pointer}.slide-dot:hover,.slide-dot.is-active{background:var(--red)}.round-link{display:grid;place-items:center;width:65px;height:65px;border:1px solid var(--red);background:var(--red);border-radius:50%;font-size:28px}.hero-stats{position:absolute;z-index:1;bottom:25px;left:28px;right:28px;display:flex;gap:25px;font:500 10px 'DM Mono';letter-spacing:.08em;text-transform:uppercase}.hero-stats span:last-child{margin-left:auto}.intro{padding:145px 0;display:grid;grid-template-columns:1fr 1.55fr;gap:10vw}.intro-copy{max-width:660px}.intro h2,.watchlist h2,.reel h2,.services h2,.contact h2{font-size:clamp(52px,7vw,100px);line-height:.86}.intro p:not(.section-label),.service-intro>p:last-child,.contact>div>p:last-of-type{font-size:16px;line-height:1.7;max-width:530px;margin:37px 0 0}.intro p+p{margin-top:16px}.text-link,.contact-email{display:inline-block;margin-top:38px;padding-bottom:4px;border-bottom:1px solid var(--ink);font:500 12px 'DM Mono';text-transform:uppercase;letter-spacing:.05em}.text-link span,.contact-email span{font-size:18px;margin-left:10px;color:var(--red)}.watchlist{padding:110px 0 30px;background:#f6f6f6}.watchlist-head{display:grid;grid-template-columns:1fr 1.55fr;gap:10vw;margin-bottom:65px}.watchlist-intro>p:not(.section-label){max-width:440px;font-size:15px;line-height:1.65;margin:33px 0 0}.watchlist-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.watchlist-card{overflow:hidden;background:#111;color:#fff}.watchlist-card img{display:block;width:100%;aspect-ratio:3/4;height:auto;object-fit:cover;filter:grayscale(1);transition:filter .3s,transform .3s}.watchlist-card:hover img{filter:grayscale(0);transform:scale(1.03)}.watchlist-card div{padding:18px 19px 22px}.watchlist-card span,.watchlist-footer{font:500 9px 'DM Mono';letter-spacing:.09em;text-transform:uppercase}.watchlist-card span{color:#ff6262}.watchlist-card h3{font-size:clamp(17px,1.55vw,26px);letter-spacing:-.07em;margin:6px 0}.watchlist-card p{font-size:12px;margin:0;color:#cacaca}.watchlist-footer{display:flex;justify-content:space-between;align-items:center;padding:25px 0 55px}.watchlist-footer a{color:var(--red);border-bottom:1px solid var(--red);padding-bottom:4px}.watchlist-footer b{font-size:18px;margin-left:8px}.reel{padding:100px 0 125px;background:#0b0b0b;color:#fff;overflow:hidden}.reel-head{display:grid;grid-template-columns:1fr 2fr 1fr;align-items:end;margin-bottom:54px}.reel-intro>p:not(.section-label){font-size:13px;line-height:1.5;margin:28px 0 0;max-width:400px}.work-grid{display:grid;grid-template-columns:repeat(6,minmax(270px,1fr));gap:14px;width:max-content;padding:0 max(28px,calc((100% - 1240px)/2))}.work-card{position:relative;height:420px;width:310px;overflow:hidden;background:#252525}.work-card:nth-child(2n){margin-top:65px}.work-card img{width:100%;height:100%;object-fit:cover;filter:grayscale(1);transition:transform .4s,filter .4s}.work-card:hover img{transform:scale(1.04);filter:grayscale(0)}.work-card:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.9))}.work-card div{position:absolute;z-index:1;bottom:20px;left:19px}.work-card span{font:500 9px 'DM Mono';letter-spacing:.1em;text-transform:uppercase;color:#ff5555}.work-card h3{font-size:20px;letter-spacing:-.06em;margin:5px 0 0}.services{padding:145px 0}.service-intro{height:max-content}.quote{background:var(--red);color:#fff;padding:125px 0}.quote blockquote{max-width:1040px;font:500 clamp(45px,6vw,86px)/.94 Manrope;letter-spacing:-.075em;margin:40px 0 28px}.quote-source{font:500 10px 'DM Mono';letter-spacing:.08em;text-transform:uppercase}.feedback{--fb-card:360px;--fb-gap:13px;margin-top:62px;overflow:hidden}.feedback-track{display:flex;width:max-content;animation:feedback-scroll 70s linear infinite}.feedback:hover .feedback-track,.feedback:focus-within .feedback-track{animation-play-state:paused}.feedback-card{display:flex;align-items:center;gap:13px;width:var(--fb-card);margin:0 var(--fb-gap) 0 0;padding:13px}.feedback-card img{flex:none;width:64px;height:64px;border-radius:50%;object-fit:cover;filter:grayscale(1)}.feedback-card figcaption{min-width:0}.feedback-card span{font:500 9px 'DM Mono';letter-spacing:.09em;text-transform:uppercase}.feedback-card p{margin:6px 0 0;font-size:13px;line-height:1.45;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}@keyframes feedback-scroll{from{transform:translateX(0)}to{transform:translateX(calc((var(--fb-card) + var(--fb-gap)) * -6))}}@media(prefers-reduced-motion:reduce){.feedback-track{animation:none}.feedback{overflow-x:auto}}.contact{padding:145px 0;display:grid;grid-template-columns:1fr 1fr;gap:10vw}.contact h2{margin-top:45px}.contact-email{font-size:13px}.phone{display:block;margin-top:20px;font:500 clamp(22px,2.2vw,32px) 'DM Mono';letter-spacing:-.02em}.phone:hover{color:var(--red)}.contact form{padding-top:39px}label{display:block;font:500 10px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;margin-bottom:25px}input,textarea{display:block;width:100%;border:0;border-bottom:1px solid var(--ink);background:transparent;padding:12px 0 15px;outline:none;font:400 16px Manrope;color:var(--ink);resize:vertical}input::placeholder,textarea::placeholder{color:#8a8a8a}button{border:0;cursor:pointer;font-family:inherit;color:inherit}.contact form button{width:100%;background:var(--red);color:#fff;padding:18px;font:500 12px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;margin-top:12px}.contact form button:hover{background:#bd1010}.contact form button span{font-size:18px;margin-left:10px}.form-success{padding:78px 30px;text-align:center;border:1px solid var(--ink)}.form-success span{font-size:28px;color:var(--red)}.form-success h3{font-size:25px;margin:15px 0 0}.form-success p{font-size:13px}.footer{background:#0b0b0b;color:#fff;padding:42px 0}.footer .wrap{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:end}.footer-mark{color:var(--red)}.footer>div>div{display:flex;gap:25px;font:500 10px 'DM Mono';text-transform:uppercase}.footer p{font:500 10px 'DM Mono';letter-spacing:.07em;text-align:right;margin:0;text-transform:uppercase}
+@media(max-width:760px){.wrap{width:calc(100% - 36px)}.nav{height:78px}.nav-links{display:none}.hero{min-height:680px}.hero-content{height:calc(100% - 78px);padding-top:85px;padding-bottom:95px}.hero h1{font-size:75px}.hero-stats{left:18px;right:18px;bottom:18px;gap:10px;font-size:8px}.hero-stats span:nth-child(2){display:none}.intro,.services,.contact{grid-template-columns:1fr;gap:40px;padding:90px 0}.intro h2,.reel h2,.services h2,.contact h2{font-size:56px}.reel{padding:85px 0}.reel-head{display:block}.reel-head h2{margin:30px 0 24px}.reel-head p:last-child{max-width:290px}.work-grid{padding-left:18px}.work-card{width:270px;height:365px}.quote{padding:90px 0}.quote blockquote{font-size:47px}.contact h2{margin-top:30px}.footer .wrap{grid-template-columns:1fr 1fr;gap:35px}.footer p{grid-column:1/-1;text-align:left}.footer>div>div{justify-content:flex-end}.nav-cta{font-size:10px;padding:10px 13px}}
+
+/* Layout refinements (formerly overrides.css) */
+.hero {
+  min-height: 560px;
+  height: 68vh;
+}
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  width: 100%;
+  height: 78px;
+  /* Sticky nav sits outside .hero, so it no longer inherits the hero's white
+     text. Set it explicitly or the links go black-on-black. */
+  color: #fff;
+  background: rgba(9, 9, 9, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+/* Nav and hero stats ride the same content column as every .wrap section,
+   so the logo lines up with the section labels below it. */
+.nav-inner {
+  width: min(1240px, calc(100% - 56px));
+  height: 100%;
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-content {
+  height: 100%;
+  padding-top: clamp(52px, 8vh, 92px);
+  padding-bottom: 72px;
+}
+
+.hero h1 {
+  font-size: clamp(60px, 8.5vw, 116px);
+}
+
+.hero-stats {
+  bottom: 20px;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: min(1240px, calc(100% - 56px));
+}
+
+.services { display: block; padding: 145px 0; }
+
+/* Heading column on the left, service cards on the right. The intro sticks
+   while the cards scroll past it (offset clears the 78px sticky nav). */
+.service-header {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  align-items: start;
+  gap: 6vw;
+  margin-bottom: 0;
+}
+
+.service-intro {
+  position: sticky;
+  top: 110px;
+}
+
+.service-summary {
+  max-width: 430px;
+  margin: 34px 0 0;
+  padding-bottom: 0;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+.modal-card { z-index: 1; }
+
+.service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 760px) {
+  .hero { min-height: 530px; height: 66vh; }
+  .nav-inner,
+  .hero-stats { width: calc(100% - 36px); padding: 0; }
+  .hero-content { height: 100%; padding-top: 42px; padding-bottom: 66px; }
+  .hero h1 { font-size: 62px; }
+  .services { padding: 90px 0; }
+  .service-header { display: block; margin-bottom: 36px; }
+  .service-intro { position: static; }
+  .service-summary { margin-top: 26px; }
+  .service-grid { grid-template-columns: 1fr; margin-top: 40px; }
+}
+
+/* Sections 01-03 follow the services pattern: label, heading and subtext stack
+   in a sticky left column, with the content boxes in the right column. */
+.intro,
+.watchlist-head,
+.reel-head {
+  display: grid;
+  /* minmax(0,…) or the work strip's max-content width blows the track out
+     and collapses the heading column to nothing. */
+  grid-template-columns: 0.85fr minmax(0, 1.15fr);
+  align-items: start;
+  gap: 6vw;
+  margin-bottom: 0;
+}
+
+.intro-head,
+.watchlist-intro,
+.reel-intro {
+  position: sticky;
+  top: 110px;
+}
+
+/* These headings are far longer than "More than a moment", so they need a
+   smaller size to sit in the narrower left column without towering. */
+.intro h2,
+.watchlist h2,
+.reel h2 {
+  font-size: clamp(36px, 4.2vw, 64px);
+  line-height: 0.9;
+}
+
+.intro-copy > p:first-child { margin-top: 0; }
+
+.watchlist-grid { grid-template-columns: repeat(2, 1fr); }
+
+/* Work is a 2-up grid in the right column, matching the services layout —
+   no longer the horizontally-bleeding strip, so the max-content sizing,
+   fixed card box and staggered offset all come off. */
+.work-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: auto;
+  padding: 0;
+}
+
+.work-card {
+  width: auto;
+  height: auto;
+}
+
+.work-card img {
+  aspect-ratio: 3 / 4;
+  height: auto;
+}
+
+.work-card:nth-child(2n) { margin-top: 0; }
+
+.work-card h3 { font-size: clamp(15px, 1.5vw, 20px); }
+
+@media (max-width: 1000px) {
+  .intro,
+  .watchlist-head,
+  .reel-head,
+  .service-header {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 44px;
+  }
+  .intro-head,
+  .watchlist-intro,
+  .reel-intro,
+  .service-intro { position: static; }
+}
+
+@media (max-width: 760px) {
+  .feedback { --fb-card: 288px; margin-top: 44px; }
+  .service-grid { grid-template-columns: 1fr; margin-top: 40px; }
+  /* Override the old fixed strip-card box from the base mobile rules. */
+  .work-card { width: auto; height: auto; }
+}
+
+/* Selected work keeps the shared split: heading column left, cards right.
+   Flex (not grid) so a short final row centres. */
+.work-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  width: auto;
+  padding: 0;
+}
+
+.work-card {
+  flex: 0 0 calc((100% - 42px) / 4);
+  width: auto;
+  height: 180px;
+}
+
+.work-card img { height: 100%; aspect-ratio: auto; }
+
+@media (max-width: 760px) {
+  .work-card { flex-basis: calc((100% - 14px) / 2); height: 150px; }
+}
+
+/* Subtext runs on one line; work grid is 3-up across two rows. */
+.reel-intro > p:not(.section-label) { max-width: none; }
+
+.work-card {
+  flex: 0 0 calc((100% - 28px) / 3);
+  height: 250px;
+}
+
+@media (max-width: 760px) {
+  .work-card { flex-basis: calc((100% - 14px) / 2); height: 170px; }
+}
+
+/* Work cards are buttons now (they open the player), so reset button chrome. */
+.work-card {
+  padding: 0;
+  text-align: left;
+  border: 0;
+  cursor: pointer;
+}
+
+.work-play {
+  position: absolute;
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  font-size: 12px;
+  opacity: 0;
+  transition: opacity .25s;
+}
+
+.work-card:hover .work-play,
+.work-card:focus-visible .work-play { opacity: 1; }
+
+.work-modal {
+  position: fixed;
+  z-index: 40;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+}
+
+/* Sizes to the video so the caption and close button track its real width. */
+.work-player {
+  position: relative;
+  z-index: 1;
+  width: auto;
+  max-width: 92vw;
+}
+
+/* Clips vary (720x720 and 720x1280), so never force an aspect ratio. Cap the
+   height at 70vh rather than fixing it: a hard height plus the width cap would
+   letterbox square clips on narrow screens instead of shrinking them. */
+.work-player video {
+  display: block;
+  height: auto;
+  width: auto;
+  max-height: 70vh;
+  max-width: 92vw;
+  margin: 0 auto;
+  background: #000;
+}
+
+.work-player .modal-close { top: -44px; right: 0; }
+
+.work-player-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 14px 0 0;
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: -.06em;
+}
+
+.work-player-caption span {
+  font: 500 9px 'DM Mono';
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #ff5555;
+}

@@ -1,0 +1,17 @@
+import type { Metadata } from "next";
+import "./globals.css";
+
+export const metadata: Metadata = {
+  title: "Media Spill Network | The Next Sound Starts Here",
+  description: "Media Spill Network discovers and develops emerging artists through cinematic media, live production, and creative collaboration.",
+  openGraph: {
+    title: "Media Spill Network | The Next Sound Starts Here",
+    description: "Discovering the artists, stories, and moments about to move culture.",
+    images: ["/og.png"],
+  },
+  twitter: { card: "summary_large_image" },
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  return <html lang="en"><body>{children}</body></html>;
+}
