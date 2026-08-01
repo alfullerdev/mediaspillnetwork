@@ -46,3 +46,6 @@ next-env.d.ts
 
 # typescript build cache
 tsconfig.tsbuildinfo
+
+# nitro/netlify build output
+/.netlify/
